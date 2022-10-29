@@ -1,4 +1,5 @@
 function p = pimontecarlo(N)
+format long
 %Nous avons un cercle inscrit dans un carré dont la longeur longueur d'un
 %coté du carré étant le diamètre du cercle.
 %Notre objectif étant basé sur la probabilité d'un point aléatoirement
