@@ -9,4 +9,4 @@ for k = 1:N
         M = M + 1;
     end
 end
-fprintf("L'aproximation de pi est : %0.4f",4*(M/N))
+fprintf("L'aproximation de pi est : %0.10f",4*(M/N))
