@@ -19,7 +19,8 @@ while setting
 end
 bomber = zeros(n+4);
 ghost = bomber;
-player = ones(n)*10;
+player = zeros(n+4);
+player(3:n+2,3:n+2) = ones(n)*10;
 while sum(sum(bomber)) < k
     bomber(randi([3,n+2],1),randi([3,n+2],1)) = 1;
 end
@@ -33,13 +34,13 @@ for i = 2:n+1
     end
 end
 ghost2 = ghost + bomber*10;
-ghost2 = ghost2(3:n+2,3:n+2);
+ghost3 = ghost2(3:n+2,3:n+2);
 while game
-    disp(player)
+    disp(player(3:n+2,3:n+2))
     k = input('flag/show/exit : ',"s");
     if k == "flag"
-        k1 = input('row : ');
-        k2 = input('col : ');
+        k1 = input('row : ')+2;
+        k2 = input('col : ')+2;
         if player(k1,k2) == 11
             player(k1,k2) = 10;
             flag = flag - 1;
@@ -52,25 +53,29 @@ while game
             end
         end
     elseif k == "show"
-        k1 = input('row : ');
-        k2 = input('col : ');
+        k1 = input('row : ')+2;
+        k2 = input('col : ')+2;
         if player(k1,k2) == 11
             disp("It's flaged")
         elseif player(k1,k2) == 10
-            if ghost2(k1,k2) == 10
+            if ghost3(k1,k2) == 10
                 player(k1,k2) = 15;
-                disp('boom')
-                disp(player)
-                break
+                disp('Boom')
+                disp(player(3:n+2,3:n+2))
+                game = false;
             else
-                player(k1,k2) = ghost2(k1,k2);
+                if ghost2(k1,k2) == 0
+                    player(k1-1:k1+1,k2-1:k2+1) = ghost2(k1-1:k1+1,k2-1:k2+1);
+                else
+                    player(k1,k2) = ghost3(k1,k2);
+                end
             end
         else
-            disp('You already discover this one')
+            disp('You have already discovered this one')
         end
     elseif k == "exit"
         disp('See you soon')
-        break
+        game = false;
     else
         disp("Don't understand")
     end
